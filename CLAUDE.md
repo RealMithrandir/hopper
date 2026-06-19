@@ -273,6 +273,14 @@ GGUF) behind the same `Stage` interface; ship the `axum` OpenAI facade; use fp16
 the wire. Serve a small real model across 2 processes.
 *Gate:* `/v1/chat/completions` returns a coherent completion from a real model
 served across processes.
+> **Phase 4 split (decided 2026-06-19):** **4a** ships the `axum` OpenAI facade +
+> fp16-on-the-wire, **fully CI-tested** against the deterministic `hopper-tiny`
+> model (golden parity); the facade is first served by the in-process engine. **4b**
+> adds the candle real-model backend behind a `Stage` backend trait; its
+> *coherent-completion* gate is an **acceptance test** (real model download), so per
+> the CI/acceptance split below it is feature-flagged / `#[ignore]`d, asserts a
+> deterministic greedy golden-token sequence, and runs **locally before release +
+> optional non-blocking nightly** — not on the blocking CI lane.
 
 Later, non-blocking: quorum-based challenge resolution for in-band fraud; cold-cache
 warm-up via input-stream replay on reroute; optional TEE attestation; a paid tier
@@ -314,6 +322,18 @@ Tests are how invariants survive a long agentic build. Required, by category:
 Run `cargo test --workspace` before declaring any task done. A task with red or
 skipped tests is not done.
 
+**CI vs. acceptance split.** Two lanes:
+- **CI (blocking):** `cargo test --workspace` — fast, deterministic, no network
+  downloads, **no skips**. Everything provable against `hopper-tiny` and the golden
+  fixture lives here and must stay green.
+- **Acceptance (non-blocking):** heavy end-to-end checks that need a real model
+  download (the Phase-4 *coherent-completion* gate). These are gated behind a Cargo
+  feature and/or `#[ignore]`, assert a **deterministic greedy golden-token**
+  sequence (temperature 0), and are run **locally before release** and optionally on
+  a **non-blocking nightly** workflow. A skip here is allowed *only* for this class;
+  the inability to run it in blocking CI must be because of the model download, not
+  because the test is flaky or unfinished.
+
 ---
 
 ## DO NOT (regressions and traps — each maps to an invariant)
@@ -326,7 +346,10 @@ skipped tests is not done.
 - ❌ Price work in raw tokens instead of FLOPs. (Inv 5)
 - ❌ Ban or rate-limit by IP address. Use stake-slash + identity-ban. (Inv 5)
 - ❌ Let optimistic-unchoke override a high contribution ratio. (Inv 5)
-- ❌ Claim a task is complete with failing/skipped tests or clippy warnings.
+- ❌ Claim a task is complete with failing/skipped tests or clippy warnings. (The
+  *only* sanctioned skip is the non-blocking real-model **acceptance** class above —
+  feature-flagged/`#[ignore]`d because of a model download, never because it is
+  flaky or unfinished.)
 - ❌ Add a heavyweight dependency (libp2p, candle, etc.) outside its phase, or any
   dep, without calling it out in the PR description.
 - ❌ Invent reference behavior — run `reference/` and match it, or ask.
