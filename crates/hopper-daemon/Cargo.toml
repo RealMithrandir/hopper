@@ -7,3 +7,22 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+hopper-model = { path = "../hopper-model" }
+hopper-engine = { path = "../hopper-engine" }   # reuse Node for worker stage hosting
+hopper-net = { path = "../hopper-net" }
+hopper-proto = { path = "../hopper-proto" }
+ndarray = "0.16"
+libp2p = { version = "0.55", features = [
+    "tokio",
+    "quic",
+    "kad",
+    "request-response",
+    "identify",
+    "macros",
+] }
+futures = "0.3"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+anyhow = "1"                                      # bins may use anyhow
+clap = { version = "4", features = ["derive"] }   # daemon CLI
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
