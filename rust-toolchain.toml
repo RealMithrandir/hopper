@@ -1,0 +1,7 @@
+# Pin the toolchain so every contributor and CI runner materializes the same
+# compiler, clippy, and rustfmt. Determinism is a project invariant (CLAUDE.md
+# §6) and it starts with the build itself.
+[toolchain]
+channel = "1.93.1"
+components = ["clippy", "rustfmt"]
+profile = "minimal"

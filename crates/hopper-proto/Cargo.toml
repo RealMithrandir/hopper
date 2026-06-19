@@ -1,0 +1,9 @@
+[package]
+name = "hopper-proto"
+description = "Protobuf wire types for the swarm (prost); codegen arrives in Phase 3."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

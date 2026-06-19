@@ -1,0 +1,13 @@
+# HOPPER workspace. One crate per layer of the design (see CLAUDE.md §"Repository
+# layout"). Phase 0 keeps every crate empty and dependency-free; heavyweight deps
+# (ndarray, libp2p, prost, candle, axum) are introduced only by the phase that
+# needs them.
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false

@@ -1,0 +1,9 @@
+[package]
+name = "hopper-net"
+description = "L2: simulated transport + latency-aware router; libp2p arrives in Phase 3 (mirrors reference/transport.py + router.py)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

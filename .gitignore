@@ -1,0 +1,7 @@
+# Rust build artifacts
+/target
+**/*.rs.bk
+
+# Python bytecode from the reference oracle / golden exporter
+__pycache__/
+*.pyc

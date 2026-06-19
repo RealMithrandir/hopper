@@ -1,0 +1,9 @@
+[package]
+name = "hopper-engine"
+description = "Orchestration: pipeline, byte/FLOP accounting, mid-stream reroute (mirrors reference/engine.py)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]

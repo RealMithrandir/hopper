@@ -1,0 +1,9 @@
+[package]
+name = "hopper-model"
+description = "L1: layer-sharded transformer + node-resident KV cache (mirrors reference/model.py)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
