@@ -8,4 +8,17 @@ publish.workspace = true
 
 [dependencies]
 hopper-ledger = { path = "../hopper-ledger" }  # router consults access tiers
+hopper-proto = { path = "../hopper-proto" }    # request-response payloads
 thiserror = "2"                                # NetError enum
+# Phase 3 real networking:
+libp2p = { version = "0.55", features = [
+    "tokio",
+    "quic",
+    "kad",
+    "request-response",
+    "identify",
+    "macros",
+] }
+prost = "0.13"        # encode/decode proto types in the request-response codec
+futures = "0.3"       # AsyncRead/AsyncWrite in the codec
+async-trait = "0.1"   # request_response::Codec is an async trait

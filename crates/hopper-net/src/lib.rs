@@ -5,8 +5,10 @@
 //! pipeline assembly with reroute). Routing optimizes latency, not bandwidth
 //! (Invariant 7); the only inter-stage payload is the activation (Invariant 1).
 
+pub mod p2p;
 pub mod router;
 pub mod transport;
 
+pub use p2p::{build_swarm, stage_key, HopperBehaviour, HopperBehaviourEvent, StageCodec};
 pub use router::{NetError, Provider, Router};
 pub use transport::{LinkProfile, NetworkMonitor, NetworkReport};
