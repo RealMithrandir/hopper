@@ -1,0 +1,1000 @@
+{
+  "format": "hopper-golden/1",
+  "description": "Deterministic export of reference/model.py: full weights + golden stage I/O for first/middle/last stages over a prefill and decode steps. Raw little-endian blobs; see per-tensor dtype/shape/path.",
+  "byte_order": "little-endian",
+  "model": {
+    "name": "hopper-tiny",
+    "model_hash": "80fe0c38c9d5e237",
+    "weight_seed": 3386237495,
+    "weight_scale": 0.02,
+    "vocab_size": 256,
+    "d_model": 128,
+    "n_layer": 8,
+    "n_head": 4,
+    "head_dim": 32,
+    "d_ff": 512,
+    "max_seq": 512,
+    "eps": 1e-05
+  },
+  "pipeline": {
+    "n_stages": 4,
+    "shard_bounds": [
+      [
+        0,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        6,
+        8
+      ]
+    ],
+    "prompt": "hopper",
+    "prompt_ids": [
+      104,
+      111,
+      112,
+      112,
+      101,
+      114
+    ],
+    "n_decode_steps": 3,
+    "generated_ids": [
+      206,
+      206,
+      236
+    ]
+  },
+  "weights": [
+    {
+      "name": "tok_emb",
+      "shape": [
+        256,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/tok_emb.bin",
+      "n_elements": 32768
+    },
+    {
+      "name": "pos_emb",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/pos_emb.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "final_g",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/final_g.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_00.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_00.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_00.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_00.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_00.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_00.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_00.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_01.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_01.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_01.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_01.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_01.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_01.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_01.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_02.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_02.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_02.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_02.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_02.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_02.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_02.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_03.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_03.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_03.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_03.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_03.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_03.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_03.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_04.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_04.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_04.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_04.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_04.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_04.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_04.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_05.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_05.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_05.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_05.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_05.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_05.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_05.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_06.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_06.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_06.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_06.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_06.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_06.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_06.w2.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_07.wqkv",
+      "shape": [
+        128,
+        384
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.wqkv.bin",
+      "n_elements": 49152
+    },
+    {
+      "name": "layer_07.wo",
+      "shape": [
+        128,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.wo.bin",
+      "n_elements": 16384
+    },
+    {
+      "name": "layer_07.g1",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.g1.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_07.g2",
+      "shape": [
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.g2.bin",
+      "n_elements": 128
+    },
+    {
+      "name": "layer_07.w1",
+      "shape": [
+        128,
+        512
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.w1.bin",
+      "n_elements": 65536
+    },
+    {
+      "name": "layer_07.w2",
+      "shape": [
+        512,
+        128
+      ],
+      "dtype": "f32",
+      "path": "weights/layer_07.w2.bin",
+      "n_elements": 65536
+    }
+  ],
+  "stages": [
+    {
+      "label": "first",
+      "stage_id": 0,
+      "layer_lo": 0,
+      "layer_hi": 2,
+      "n_layers": 2,
+      "is_first": true,
+      "is_last": false,
+      "input_kind": "token_ids",
+      "output_kind": "hidden",
+      "n_params": 492032,
+      "steps": [
+        {
+          "index": 0,
+          "kind": "prefill",
+          "base_pos": 0,
+          "n_tokens": 6,
+          "input": {
+            "name": "first.step_00_prefill.input",
+            "shape": [
+              6
+            ],
+            "dtype": "i64",
+            "path": "vectors/first/step_00_prefill.input.bin",
+            "n_elements": 6
+          },
+          "output": {
+            "name": "first.step_00_prefill.output",
+            "shape": [
+              6,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/first/step_00_prefill.output.bin",
+            "n_elements": 768
+          }
+        },
+        {
+          "index": 1,
+          "kind": "decode",
+          "base_pos": 6,
+          "n_tokens": 1,
+          "input": {
+            "name": "first.step_01_decode.input",
+            "shape": [
+              1
+            ],
+            "dtype": "i64",
+            "path": "vectors/first/step_01_decode.input.bin",
+            "n_elements": 1
+          },
+          "output": {
+            "name": "first.step_01_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/first/step_01_decode.output.bin",
+            "n_elements": 128
+          }
+        },
+        {
+          "index": 2,
+          "kind": "decode",
+          "base_pos": 7,
+          "n_tokens": 1,
+          "input": {
+            "name": "first.step_02_decode.input",
+            "shape": [
+              1
+            ],
+            "dtype": "i64",
+            "path": "vectors/first/step_02_decode.input.bin",
+            "n_elements": 1
+          },
+          "output": {
+            "name": "first.step_02_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/first/step_02_decode.output.bin",
+            "n_elements": 128
+          }
+        },
+        {
+          "index": 3,
+          "kind": "decode",
+          "base_pos": 8,
+          "n_tokens": 1,
+          "input": {
+            "name": "first.step_03_decode.input",
+            "shape": [
+              1
+            ],
+            "dtype": "i64",
+            "path": "vectors/first/step_03_decode.input.bin",
+            "n_elements": 1
+          },
+          "output": {
+            "name": "first.step_03_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/first/step_03_decode.output.bin",
+            "n_elements": 128
+          }
+        }
+      ],
+      "cumulative": {
+        "input": {
+          "name": "first.cumulative.input",
+          "shape": [
+            9
+          ],
+          "dtype": "i64",
+          "path": "vectors/first/cumulative.input.bin",
+          "n_elements": 9
+        },
+        "output_online": {
+          "name": "first.cumulative.output_online",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/first/cumulative.output_online.bin",
+          "n_elements": 1152
+        },
+        "output_stateless": {
+          "name": "first.cumulative.output_stateless",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/first/cumulative.output_stateless.bin",
+          "n_elements": 1152
+        },
+        "audit_rel_l2": 1.5404e-07
+      }
+    },
+    {
+      "label": "middle",
+      "stage_id": 2,
+      "layer_lo": 4,
+      "layer_hi": 6,
+      "n_layers": 2,
+      "is_first": false,
+      "is_last": false,
+      "input_kind": "hidden",
+      "output_kind": "hidden",
+      "n_params": 393728,
+      "steps": [
+        {
+          "index": 0,
+          "kind": "prefill",
+          "base_pos": 0,
+          "n_tokens": 6,
+          "input": {
+            "name": "middle.step_00_prefill.input",
+            "shape": [
+              6,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_00_prefill.input.bin",
+            "n_elements": 768
+          },
+          "output": {
+            "name": "middle.step_00_prefill.output",
+            "shape": [
+              6,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_00_prefill.output.bin",
+            "n_elements": 768
+          }
+        },
+        {
+          "index": 1,
+          "kind": "decode",
+          "base_pos": 6,
+          "n_tokens": 1,
+          "input": {
+            "name": "middle.step_01_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_01_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "middle.step_01_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_01_decode.output.bin",
+            "n_elements": 128
+          }
+        },
+        {
+          "index": 2,
+          "kind": "decode",
+          "base_pos": 7,
+          "n_tokens": 1,
+          "input": {
+            "name": "middle.step_02_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_02_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "middle.step_02_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_02_decode.output.bin",
+            "n_elements": 128
+          }
+        },
+        {
+          "index": 3,
+          "kind": "decode",
+          "base_pos": 8,
+          "n_tokens": 1,
+          "input": {
+            "name": "middle.step_03_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_03_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "middle.step_03_decode.output",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/middle/step_03_decode.output.bin",
+            "n_elements": 128
+          }
+        }
+      ],
+      "cumulative": {
+        "input": {
+          "name": "middle.cumulative.input",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/middle/cumulative.input.bin",
+          "n_elements": 1152
+        },
+        "output_online": {
+          "name": "middle.cumulative.output_online",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/middle/cumulative.output_online.bin",
+          "n_elements": 1152
+        },
+        "output_stateless": {
+          "name": "middle.cumulative.output_stateless",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/middle/cumulative.output_stateless.bin",
+          "n_elements": 1152
+        },
+        "audit_rel_l2": 0.0
+      }
+    },
+    {
+      "label": "last",
+      "stage_id": 3,
+      "layer_lo": 6,
+      "layer_hi": 8,
+      "n_layers": 2,
+      "is_first": false,
+      "is_last": true,
+      "input_kind": "hidden",
+      "output_kind": "logits",
+      "n_params": 393856,
+      "steps": [
+        {
+          "index": 0,
+          "kind": "prefill",
+          "base_pos": 0,
+          "n_tokens": 6,
+          "input": {
+            "name": "last.step_00_prefill.input",
+            "shape": [
+              6,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_00_prefill.input.bin",
+            "n_elements": 768
+          },
+          "output": {
+            "name": "last.step_00_prefill.output",
+            "shape": [
+              6,
+              256
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_00_prefill.output.bin",
+            "n_elements": 1536
+          }
+        },
+        {
+          "index": 1,
+          "kind": "decode",
+          "base_pos": 6,
+          "n_tokens": 1,
+          "input": {
+            "name": "last.step_01_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_01_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "last.step_01_decode.output",
+            "shape": [
+              1,
+              256
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_01_decode.output.bin",
+            "n_elements": 256
+          }
+        },
+        {
+          "index": 2,
+          "kind": "decode",
+          "base_pos": 7,
+          "n_tokens": 1,
+          "input": {
+            "name": "last.step_02_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_02_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "last.step_02_decode.output",
+            "shape": [
+              1,
+              256
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_02_decode.output.bin",
+            "n_elements": 256
+          }
+        },
+        {
+          "index": 3,
+          "kind": "decode",
+          "base_pos": 8,
+          "n_tokens": 1,
+          "input": {
+            "name": "last.step_03_decode.input",
+            "shape": [
+              1,
+              128
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_03_decode.input.bin",
+            "n_elements": 128
+          },
+          "output": {
+            "name": "last.step_03_decode.output",
+            "shape": [
+              1,
+              256
+            ],
+            "dtype": "f32",
+            "path": "vectors/last/step_03_decode.output.bin",
+            "n_elements": 256
+          }
+        }
+      ],
+      "cumulative": {
+        "input": {
+          "name": "last.cumulative.input",
+          "shape": [
+            9,
+            128
+          ],
+          "dtype": "f32",
+          "path": "vectors/last/cumulative.input.bin",
+          "n_elements": 1152
+        },
+        "output_online": {
+          "name": "last.cumulative.output_online",
+          "shape": [
+            9,
+            256
+          ],
+          "dtype": "f32",
+          "path": "vectors/last/cumulative.output_online.bin",
+          "n_elements": 2304
+        },
+        "output_stateless": {
+          "name": "last.cumulative.output_stateless",
+          "shape": [
+            9,
+            256
+          ],
+          "dtype": "f32",
+          "path": "vectors/last/cumulative.output_stateless.bin",
+          "n_elements": 2304
+        },
+        "audit_rel_l2": 0.0
+      }
+    }
+  ]
+}
