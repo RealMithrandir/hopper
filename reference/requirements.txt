@@ -1,0 +1,4 @@
+numpy>=1.24
+# optional, for the Layer-3 HTTP route:
+fastapi>=0.110
+httpx
