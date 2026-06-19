@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package hopper;
+
+// A hidden-state activation [n_tokens, d_model], row-major f32. This is the ONLY
+// inter-node payload (Invariant 1): the KV cache never appears on the wire.
+message Activation {
+  uint32 n_tokens = 1;
+  uint32 d_model = 2;          // = vocab for last-stage logits
+  repeated float data = 3;     // row-major; length == n_tokens * d_model
+}
+
+// Token ids — the first stage's input.
+message TokenIds {
+  repeated uint32 ids = 1;
+}
+
+// client -> stage 0: open a session.
+message InferenceRequest {
+  string model_hash = 1;
+  string session = 2;
+  TokenIds prompt = 3;
+  bytes client_sig = 4;        // stub until identity signing lands
+}
+
+// stage k -> stage k+1 (here: coordinator -> worker for stage k). The activation
+// to run this stage on, plus its absolute base position.
+message ActivationStream {
+  string session = 1;
+  uint32 stage_id = 2;
+  uint64 seq_pos = 3;
+  oneof input {
+    TokenIds ids = 4;          // first stage
+    Activation activation = 5; // later stages
+  }
+}
+
+// worker -> coordinator: the stage result + its audit commitment.
+message StageResponse {
+  Activation output = 1;       // hidden (non-last) or logits (last stage)
+  bool is_logits = 2;
+  string commitment = 3;       // sha256(output || nonce)
+  string nonce = 4;
+  uint64 flops = 5;
+}
+
+// verifier -> worker: demand a reveal for a logged stage run.
+message AuditChallenge {
+  string session = 1;
+  uint32 stage_id = 2;
+  string nonce_request = 3;
+}
+
+// worker -> verifier: the logged cumulative I/O that satisfies a prior commitment.
+message AuditReveal {
+  string session = 1;
+  uint32 stage_id = 2;
+  oneof input {
+    TokenIds ids = 3;
+    Activation activation = 4;
+  }
+  Activation claimed_output = 5;
+  string nonce = 6;
+}
+
+// verifier -> bucket (gossip): evidence of a caught cheat.
+message FraudProof {
+  string offender = 1;
+  double recompute_delta = 2;
+  string evidence = 3;
+}
+
+// stage S-1 -> client: a sampled token + telemetry.
+message TokenPublish {
+  string session = 1;
+  uint32 token = 2;
+  uint64 seq_pos = 3;
+}

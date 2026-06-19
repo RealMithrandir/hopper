@@ -7,3 +7,8 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+prost = "0.13"  # protobuf wire types
+
+[build-dependencies]
+prost-build = "0.13"  # codegen
+protox = "0.7"        # pure-Rust .proto compiler (no system protoc needed in CI)
