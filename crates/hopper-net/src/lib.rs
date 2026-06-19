@@ -1,17 +1,12 @@
-//! `hopper-net` — L2 transport + router.
+//! `hopper-net` — L2 transport + router (simulated; libp2p arrives in Phase 3).
 //!
-//! Phase 0 scaffold: intentionally empty. Phase 2 ports the simulated transport
-//! (`LinkProfile`, `NetworkMonitor` with the `kv_ship_bytes_avoided`
-//! counterfactual) and the latency-aware `Router` (mirrors
-//! `reference/transport.py` + `router.py`); Phase 3 swaps the sim for libp2p.
-//! Routing optimizes latency, never bandwidth (Invariant 7), and the only
-//! inter-stage payload is the activation (Invariant 1).
+//! Ports `reference/transport.py` (byte/latency accounting + the
+//! KV-bytes-avoided counterfactual) and `reference/router.py` (latency-aware
+//! pipeline assembly with reroute). Routing optimizes latency, not bandwidth
+//! (Invariant 7); the only inter-stage payload is the activation (Invariant 1).
 
-#[cfg(test)]
-mod tests {
-    /// Placeholder so `cargo test` has a green target until Phase 2 lands.
-    #[test]
-    fn scaffold_builds() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+pub mod router;
+pub mod transport;
+
+pub use router::{NetError, Provider, Router};
+pub use transport::{LinkProfile, NetworkMonitor, NetworkReport};
