@@ -2,12 +2,13 @@ syntax = "proto3";
 
 package hopper;
 
-// A hidden-state activation [n_tokens, d_model], row-major f32. This is the ONLY
-// inter-node payload (Invariant 1): the KV cache never appears on the wire.
+// A hidden-state activation [n_tokens, d_model]. This is the ONLY inter-node
+// payload (Invariant 1): the KV cache never appears on the wire. The payload is
+// the model's working dtype on the wire — fp16 — to halve wire bytes (Phase 4).
 message Activation {
   uint32 n_tokens = 1;
   uint32 d_model = 2;          // = vocab for last-stage logits
-  repeated float data = 3;     // row-major; length == n_tokens * d_model
+  bytes data = 3;              // row-major little-endian f16; len == n_tokens*d_model*2
 }
 
 // Token ids — the first stage's input.

@@ -19,10 +19,11 @@ mod tests {
 
     #[test]
     fn activation_round_trips_through_protobuf() {
+        // `data` is raw little-endian f16 bytes (2 per element); 2x3 -> 12 bytes.
         let act = Activation {
             n_tokens: 2,
             d_model: 3,
-            data: vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0],
+            data: (0..12u8).collect(),
         };
         let bytes = act.encode_to_vec();
         let back = Activation::decode(bytes.as_slice()).unwrap();

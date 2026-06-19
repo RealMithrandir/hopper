@@ -2,24 +2,41 @@
 //! Lives in the daemon so `hopper-proto` stays a pure wire crate.
 
 use anyhow::{anyhow, Result};
+use half::f16;
 use ndarray::Array2;
 
 use hopper_model::Activation as ModelActivation;
 use hopper_proto::{activation_stream, Activation as ProtoActivation, ActivationStream, TokenIds};
 
-/// `[n_tokens, d_model]` tensor → proto activation (row-major f32).
+/// `[n_tokens, d_model]` tensor → proto activation, downcast to little-endian f16
+/// for the wire (Phase 4: halve wire bytes, Invariant 1 unchanged).
 pub fn array2_to_proto(a: &Array2<f32>) -> ProtoActivation {
+    let mut data = Vec::with_capacity(a.len() * 2);
+    for &x in a.iter() {
+        data.extend_from_slice(&f16::from_f32(x).to_le_bytes());
+    }
     ProtoActivation {
         n_tokens: a.nrows() as u32,
         d_model: a.ncols() as u32,
-        data: a.iter().copied().collect(),
+        data,
     }
 }
 
-/// Proto activation → `[n_tokens, d_model]` tensor.
+/// Proto activation (little-endian f16) → `[n_tokens, d_model]` f32 tensor.
 pub fn proto_to_array2(a: &ProtoActivation) -> Result<Array2<f32>> {
-    Array2::from_shape_vec((a.n_tokens as usize, a.d_model as usize), a.data.clone())
-        .map_err(|e| anyhow!("malformed activation: {e}"))
+    let (rows, cols) = (a.n_tokens as usize, a.d_model as usize);
+    if a.data.len() != rows * cols * 2 {
+        return Err(anyhow!(
+            "activation byte length {} != {rows}x{cols}x2",
+            a.data.len()
+        ));
+    }
+    let floats: Vec<f32> = a
+        .data
+        .chunks_exact(2)
+        .map(|c| f16::from_le_bytes([c[0], c[1]]).to_f32())
+        .collect();
+    Array2::from_shape_vec((rows, cols), floats).map_err(|e| anyhow!("malformed activation: {e}"))
 }
 
 /// Build a stage request carrying the model's current activation.
