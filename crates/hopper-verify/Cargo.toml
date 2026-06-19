@@ -7,3 +7,10 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+hopper-model = { path = "../hopper-model" }    # stateless re-execution of stages
+hopper-ledger = { path = "../hopper-ledger" }  # slash on a caught cheat
+ndarray = "0.16"
+sha2 = "0.10"                                   # commit = sha256(out || nonce)
+rand = "0.9"                                    # audit-probability draw + hw drift
+rand_chacha = "0.9"                             # explicit, reproducible seeding
+thiserror = "2"
