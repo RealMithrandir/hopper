@@ -7,3 +7,11 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+hopper-model = { path = "../hopper-model" }
+hopper-ledger = { path = "../hopper-ledger" }
+hopper-verify = { path = "../hopper-verify" }
+hopper-net = { path = "../hopper-net" }
+ndarray = "0.16"
+rand = "0.9"          # sampling at temperature > 0
+rand_chacha = "0.9"   # explicit, reproducible seeding
+thiserror = "2"
