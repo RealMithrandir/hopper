@@ -258,6 +258,15 @@ discovery, QUIC `ActivationStream` via request-response, gossipsub for reputatio
 killing one mid-stream triggers a reroute.
 *Gate:* a multi-process test (spawn 2+ daemons) completes generation and survives a
 mid-stream node kill.
+> **Phase 3 scope note (decided 2026-06-18):** topology is **coordinator-mediated**
+> — an *unprivileged daemon role* drives the token loop and each stage hop is a real
+> libp2p QUIC request-response to the remote worker hosting that stage; discovery is
+> Kademlia; reroute is coordinator-driven on request failure. Full **peer-relay**
+> decentralization (`stage k → stage k+1` directly, per the wire table) is deferred
+> to a later phase. The DoD is unchanged (2+ processes, inference completes,
+> mid-stream kill reroutes). All wire-table message types land in `hopper-proto`, but
+> `FraudProof`/gossipsub may be stubbed (defined, not actively gossiped) if wiring
+> them threatens multi-process test stability. See `docs/TECH_SPEC.md §7`.
 
 **Phase 4 — Real models + API.** Add a real inference backend (candle/llama.cpp,
 GGUF) behind the same `Stage` interface; ship the `axum` OpenAI facade; use fp16 on

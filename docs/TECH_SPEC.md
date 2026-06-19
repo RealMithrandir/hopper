@@ -227,6 +227,39 @@ log a ring buffer of commitments with on-demand reveal rather than retaining ful
 I/O; size the tolerance band per `(backend, dtype)` pair from an offline
 calibration sweep.
 
+### 7.1 Phase 3 networking decision — coordinator-mediated first (2026-06-18)
+
+The first real-network milestone is implemented **coordinator-mediated**, not yet
+fully peer-relayed:
+
+* A node runs the same `hopper-daemon` binary in one of two **unprivileged roles**:
+  a **worker** hosts contiguous stages, pins their KV caches locally, and serves
+  `ActivationStream` over a libp2p QUIC request-response protocol; a **coordinator**
+  discovers stage providers via **Kademlia** (`start_providing(stage_id)` /
+  `get_providers`) and drives the token loop, sending each stage's activation to the
+  chosen worker and threading the result to the next stage. Any node may be a
+  coordinator — it is not a privileged or trusted role.
+* **Reroute** is coordinator-driven: a request that fails (peer gone / timeout)
+  excludes that provider and re-selects from Kademlia, exactly mirroring the
+  reference engine's mid-stream re-assembly. This keeps the proven Phase-2
+  orchestration (metering, FLOP credit, audit, reroute) and makes the mid-stream
+  kill test deterministic.
+* **Invariant 1 still holds**: only the `[n_tokens, d_model]` activation crosses the
+  wire; the KV cache never leaves the worker. The deviation from §2's literal
+  `stage k → stage k+1` relay is the *path* the activation takes (worker ↔
+  coordinator ↔ worker), not its size. Full **peer-relay** decentralization
+  (direct `stage k → stage k+1`, last stage looping the token back to stage 0) is a
+  later phase.
+* All wire-table message types (`InferenceRequest`, `ActivationStream`,
+  `AuditChallenge`, `AuditReveal`, `FraudProof`, `TokenPublish`) are defined in
+  `hopper-proto`. `FraudProof`/gossipsub propagation may be **stubbed** (type
+  present, not actively gossiped) in this phase if wiring it threatens multi-process
+  test stability; it returns when peer-relay lands.
+
+The Phase 3 DoD is unchanged: 2+ OS processes form a swarm, an inference completes
+across them, and killing a worker mid-stream triggers a reroute that finishes the
+generation.
+
 ---
 
 ## 8. Open problems (unchanged honesty)
