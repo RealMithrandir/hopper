@@ -19,6 +19,12 @@ pub enum ModelError {
     #[error("non-first stage requires a hidden activation as input")]
     ExpectedHidden,
 
+    #[error("cannot concatenate an empty activation list")]
+    EmptyConcat,
+
+    #[error("cannot concatenate activations of mixed kinds (ids vs hidden)")]
+    MixedActivations,
+
     #[error("golden tensor '{0}' missing from manifest")]
     MissingTensor(String),
 

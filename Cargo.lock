@@ -81,10 +81,23 @@ version = "0.0.0"
 [[package]]
 name = "hopper-engine"
 version = "0.0.0"
+dependencies = [
+ "hopper-ledger",
+ "hopper-model",
+ "hopper-net",
+ "hopper-verify",
+ "ndarray",
+ "rand",
+ "rand_chacha",
+ "thiserror",
+]
 
 [[package]]
 name = "hopper-ledger"
 version = "0.0.0"
+dependencies = [
+ "sha2",
+]
 
 [[package]]
 name = "hopper-model"
@@ -102,6 +115,10 @@ dependencies = [
 [[package]]
 name = "hopper-net"
 version = "0.0.0"
+dependencies = [
+ "hopper-ledger",
+ "thiserror",
+]
 
 [[package]]
 name = "hopper-proto"
@@ -110,6 +127,15 @@ version = "0.0.0"
 [[package]]
 name = "hopper-verify"
 version = "0.0.0"
+dependencies = [
+ "hopper-ledger",
+ "hopper-model",
+ "ndarray",
+ "rand",
+ "rand_chacha",
+ "sha2",
+ "thiserror",
+]
 
 [[package]]
 name = "itoa"

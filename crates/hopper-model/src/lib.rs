@@ -15,10 +15,12 @@ pub mod config;
 pub mod error;
 pub mod golden;
 pub mod stage;
+pub mod tokenizer;
 pub mod weights;
 
 pub use cache::KVCache;
 pub use config::ModelConfig;
 pub use error::ModelError;
 pub use stage::{shard, Activation, Stage};
+pub use tokenizer::{decode, encode};
 pub use weights::{LayerWeights, Weights};

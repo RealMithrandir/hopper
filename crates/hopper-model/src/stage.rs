@@ -36,6 +36,34 @@ impl Activation {
             Activation::Hidden(h) => h.nrows(),
         }
     }
+
+    /// Concatenate a session's step activations along the token axis — the
+    /// cumulative input a worker logs and an auditor re-executes (see node/verify).
+    /// All parts must share a kind; the list must be non-empty.
+    pub fn concat(parts: &[Activation]) -> Result<Activation, ModelError> {
+        match parts.first().ok_or(ModelError::EmptyConcat)? {
+            Activation::Ids(_) => {
+                let mut ids = Vec::new();
+                for p in parts {
+                    match p {
+                        Activation::Ids(v) => ids.extend_from_slice(v),
+                        Activation::Hidden(_) => return Err(ModelError::MixedActivations),
+                    }
+                }
+                Ok(Activation::Ids(ids))
+            }
+            Activation::Hidden(_) => {
+                let mut views = Vec::with_capacity(parts.len());
+                for p in parts {
+                    match p {
+                        Activation::Hidden(h) => views.push(h.view()),
+                        Activation::Ids(_) => return Err(ModelError::MixedActivations),
+                    }
+                }
+                Ok(Activation::Hidden(ndarray::concatenate(Axis(0), &views)?))
+            }
+        }
+    }
 }
 
 /// RMSNorm: `x / sqrt(mean(x^2) + eps) * gain`, row-wise. Matches `model._rmsnorm`.
