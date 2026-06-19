@@ -7,3 +7,13 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+# Phase 1 inference deps (all anticipated in CLAUDE.md §Dependencies):
+ndarray = "0.16"             # tensor math for the transformer stage
+serde = { version = "1", features = ["derive"] }  # manifest deserialization
+serde_json = "1"             # parse reference/golden/manifest.json
+sha2 = "0.10"                # model_hash = sha256(name)[..16]
+thiserror = "2"              # per-crate error enum (library convention)
+
+[dev-dependencies]
+rand = "0.9"                 # property-test session generation
+rand_chacha = "0.9"          # explicit, reproducible seeding (no ambient entropy)
